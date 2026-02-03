@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y7 Capital | Cyber & Defence</title>
+
+    <!-- Fonts from D -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           CSS CUSTOM PROPERTIES — D's palette with C's content structure
+           Using Fibonacci-inspired spacing: 8, 13, 21, 34, 55, 89, 144
+        ═══════════════════════════════════════════════════════════ */
+        :root {
+            /* Colors - Pure D palette */
+            --bone: #F6F5F2;
+            --bone-warm: #F8F6F1;
+            --ink: #1E1E1C;
+            --ink-light: #3D3D3A;
+            --slate: #5E6B73;
+            --slate-muted: #8A949B;
+            --forest: #2D3830;
+            --ghost: rgba(30, 30, 28, 0.06);
+            --ghost-strong: rgba(30, 30, 28, 0.12);
+
+            /* Typography */
+            --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            /* Spacing (Fibonacci-ish) */
+            --space-xs: 8px;
+            --space-sm: 13px;
+            --space-md: 21px;
+            --space-lg: 34px;
+            --space-xl: 55px;
+            --space-2xl: 89px;
+            --space-3xl: 144px;
+
+            /* Timing */
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-settle: 600ms;
+            --duration-reveal: 300ms;
+            --delay-intent: 150ms;
+
+            /* Layout */
+            --margin-left: 120px;
+            --content-max: 1100px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           RESET & BASE
+        ═══════════════════════════════════════════════════════════ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--sans);
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--ink);
+            background-color: var(--bone);
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--slate);
+            color: var(--bone);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           NAVIGATION — Marginalia style from D
+        ═══════════════════════════════════════════════════════════ */
+        .nav-marginalia {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: var(--margin-left);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: var(--space-lg) var(--space-md);
+            padding-bottom: var(--space-3xl);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .nav-marginalia > * {
+            pointer-events: auto;
+        }
+
+        .nav-logo {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            align-items: flex-start;
+        }
+
+        .nav-link {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--slate-muted);
+            text-decoration: none;
+            transition: color var(--duration-reveal) var(--ease-out);
+            position: relative;
+            padding: 2px 0;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--ink);
+            transform: translateY(-50%);
+            transition: width var(--duration-reveal) var(--ease-out);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--ink);
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 4px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           MAIN CONTENT
+        ═══════════════════════════════════════════════════════════ */
+        .main {
+            margin-left: var(--margin-left);
+            min-height: 100vh;
+        }
+
+        .section {
+            padding: var(--space-3xl) var(--space-2xl);
+            max-width: var(--content-max);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity var(--duration-settle) var(--ease-out),
+                        transform var(--duration-settle) var(--ease-out);
+        }
+
+        .section.settled {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           TYPOGRAPHY SYSTEM
+        ═══════════════════════════════════════════════════════════ */
+        .display-large {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+        }
+
+        .display-medium {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 400;
+            line-height: 1.25;
+            color: var(--ink);
+        }
+
+        .section-label {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--slate-muted);
+            margin-bottom: var(--space-lg);
+        }
+
+        .body-text {
+            font-family: var(--sans);
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--ink-light);
+            max-width: 640px;
+        }
+
+        .body-text.wide {
+            max-width: 720px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           HERO — Nordic restraint with C's messaging
+        ═══════════════════════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: var(--space-3xl);
+            padding-bottom: var(--space-3xl);
+        }
+
+        .hero-headline {
+            margin-bottom: var(--space-lg);
+        }
+
+        .hero-subhead {
+            font-family: var(--sans);
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: var(--slate);
+            margin-bottom: var(--space-xl);
+            max-width: 540px;
+            line-height: 1.7;
+        }
+
+        .value-props {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+            padding-top: var(--space-xl);
+            border-top: 1px solid var(--ghost);
+        }
+
+        .value-prop {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+        }
+
+        .value-prop-marker {
+            width: 6px;
+            height: 6px;
+            background: var(--forest);
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .value-prop-text {
+            font-family: var(--sans);
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            line-height: 1.6;
+        }
+
+        .value-prop-text strong {
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           THESIS SECTION — C's content, D's cards
+        ═══════════════════════════════════════════════════════════ */
+        .thesis-section {
+            background: var(--bone-warm);
+            padding: var(--space-3xl) var(--space-2xl);
+            margin-left: calc(-1 * var(--space-2xl));
+            margin-right: calc(-1 * var(--space-2xl));
+            padding-left: calc(var(--space-2xl) + var(--margin-left));
+        }
+
+        .thesis-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+            max-width: var(--content-max);
+        }
+
+        .thesis-card {
+            padding: var(--space-lg);
+            border-left: 1px solid var(--ghost);
+            transition: border-color var(--duration-reveal) var(--ease-out);
+        }
+
+        .thesis-card:hover {
+            border-color: var(--slate-muted);
+        }
+
+        .thesis-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+            opacity: 0.7;
+        }
+
+        .thesis-card h3 {
+            font-family: var(--serif);
+            font-size: 1.375rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: var(--space-sm);
+        }
+
+        .thesis-card p {
+            font-family: var(--sans);
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            line-height: 1.7;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           BRIDGE SECTION — The Kyiv-Brussels corridor
+        ═══════════════════════════════════════════════════════════ */
+        .bridge-section {
+            padding-top: var(--space-2xl);
+        }
+
+        .bridge-intro {
+            margin-bottom: var(--space-xl);
+            max-width: 640px;
+        }
+
+        .bridge-visual {
+            display: grid;
+            grid-template-columns: 1fr 140px 1fr;
+            align-items: stretch;
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .bridge-block {
+            padding: var(--space-lg);
+            border: 1px solid var(--ghost);
+            background: var(--bone-warm);
+        }
+
+        .bridge-block.source {
+            border-left: 3px solid var(--slate);
+        }
+
+        .bridge-block.target {
+            border-left: 3px solid var(--forest);
+        }
+
+        .bridge-label {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--slate-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .bridge-headline {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: var(--space-sm);
+        }
+
+        .bridge-context {
+            font-family: var(--sans);
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            line-height: 1.7;
+        }
+
+        .bridge-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .bridge-arrow {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, var(--slate), var(--forest));
+            position: relative;
+        }
+
+        .bridge-arrow::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: 8px solid var(--forest);
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+        }
+
+        .bridge-icon {
+            font-family: var(--serif);
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--ink);
+            background: var(--bone);
+            padding: var(--space-xs) var(--space-md);
+            border: 1px solid var(--ghost);
+        }
+
+        .bridge-arbitrage {
+            margin-top: var(--space-xl);
+            padding: var(--space-lg);
+            border: 1px solid var(--ghost);
+            background: var(--bone-warm);
+            max-width: 800px;
+        }
+
+        .bridge-arbitrage p {
+            font-family: var(--sans);
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            line-height: 1.8;
+        }
+
+        .bridge-arbitrage strong {
+            font-weight: 500;
+            color: var(--ink);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.8125rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           VERTICALS — Investment focus areas
+        ═══════════════════════════════════════════════════════════ */
+        .verticals-section {
+            background: var(--bone-warm);
+            padding: var(--space-3xl) var(--space-2xl);
+            margin-left: calc(-1 * var(--space-2xl));
+            margin-right: calc(-1 * var(--space-2xl));
+            padding-left: calc(var(--space-2xl) + var(--margin-left));
+        }
+
+        .verticals-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-xl);
+            margin-top: var(--space-xl);
+            max-width: var(--content-max);
+        }
+
+        .vertical-card {
+            padding: var(--space-lg);
+            border: 1px solid var(--ghost);
+            background: var(--bone);
+            transition: border-color var(--duration-reveal) var(--ease-out);
+        }
+
+        .vertical-card:hover {
+            border-color: var(--slate-muted);
+        }
+
+        .vertical-icon {
+            font-size: 1.75rem;
+            margin-bottom: var(--space-md);
+            opacity: 0.8;
+        }
+
+        .vertical-card h3 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: var(--space-sm);
+        }
+
+        .vertical-card p {
+            font-family: var(--sans);
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            line-height: 1.7;
+            margin-bottom: var(--space-md);
+        }
+
+        .vertical-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+        }
+
+        .vertical-tag {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border: 1px solid var(--ghost);
+            color: var(--slate);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           PIPELINE — Deal flow access
+        ═══════════════════════════════════════════════════════════ */
+        .pipeline-section {
+            padding-top: var(--space-2xl);
+        }
+
+        .pipeline-intro {
+            max-width: 640px;
+            margin-bottom: var(--space-xl);
+        }
+
+        .pipeline-intro p {
+            font-family: var(--sans);
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--ink-light);
+            margin-top: var(--space-md);
+        }
+
+        .pipeline-categories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .pipeline-category {
+            padding: var(--space-lg);
+            border: 1px solid var(--ghost);
+            text-align: center;
+            transition: border-color var(--duration-reveal) var(--ease-out),
+                        background var(--duration-reveal) var(--ease-out);
+        }
+
+        .pipeline-category:hover {
+            border-color: var(--slate-muted);
+            background: var(--bone-warm);
+        }
+
+        .pipeline-category-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-md);
+            opacity: 0.7;
+        }
+
+        .pipeline-category h4 {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: var(--space-xs);
+        }
+
+        .pipeline-category p {
+            font-family: var(--sans);
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: var(--slate);
+            line-height: 1.6;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           APPROACH — Access meets Governance
+        ═══════════════════════════════════════════════════════════ */
+        .approach-section {
+            background: var(--bone-warm);
+            padding: var(--space-3xl) var(--space-2xl);
+            margin-left: calc(-1 * var(--space-2xl));
+            margin-right: calc(-1 * var(--space-2xl));
+            padding-left: calc(var(--space-2xl) + var(--margin-left));
+        }
+
+        .approach-intro {
+            margin-bottom: var(--space-xl);
+            max-width: 640px;
+        }
+
+        .approach-intro p {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--ink-light);
+            margin-top: var(--space-md);
+        }
+
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-xl);
+            max-width: var(--content-max);
+        }
+
+        .approach-column {
+            border: 1px solid var(--ghost);
+            background: var(--bone);
+        }
+
+        .approach-column-header {
+            padding: var(--space-md) var(--space-lg);
+            border-bottom: 1px solid var(--ghost);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .approach-column-icon {
+            font-size: 1.25rem;
+            opacity: 0.7;
+        }
+
+        .approach-column-title {
+            font-family: var(--sans);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        .approach-column-location {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 400;
+            color: var(--slate-muted);
+            margin-left: auto;
+            letter-spacing: 0.04em;
+        }
+
+        .approach-items {
+            padding: var(--space-lg);
+        }
+
+        .approach-item {
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--ghost);
+        }
+
+        .approach-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .approach-item-title {
+            font-family: var(--serif);
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: var(--space-xs);
+        }
+
+        .approach-item-desc {
+            font-family: var(--sans);
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            line-height: 1.6;
+        }
+
+        /* Exit Landscape */
+        .exit-section {
+            margin-top: var(--space-xl);
+            padding-top: var(--space-xl);
+            border-top: 1px solid var(--ghost);
+        }
+
+        .exit-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .exit-card {
+            padding: var(--space-md);
+            border-left: 1px solid var(--ghost);
+            transition: border-color var(--duration-reveal) var(--ease-out);
+        }
+
+        .exit-card:hover {
+            border-color: var(--slate-muted);
+        }
+
+        .exit-card h4 {
+            font-family: var(--serif);
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: var(--space-xs);
+        }
+
+        .exit-card p {
+            font-family: var(--sans);
+            font-size: 0.8125rem;
+            font-weight: 300;
+            color: var(--slate);
+            line-height: 1.5;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CONTACT — Invitation
+        ═══════════════════════════════════════════════════════════ */
+        .contact-section {
+            padding-top: var(--space-3xl);
+            padding-bottom: var(--space-3xl);
+        }
+
+        .contact-intro {
+            margin-bottom: var(--space-lg);
+        }
+
+        .contact-text {
+            font-family: var(--serif);
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 400;
+            color: var(--ink);
+            line-height: 1.4;
+            max-width: 560px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-family: var(--sans);
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--slate);
+            text-decoration: none;
+            transition: color var(--duration-reveal) var(--ease-out);
+        }
+
+        .contact-link:hover {
+            color: var(--ink);
+        }
+
+        .contact-link-arrow {
+            width: 24px;
+            height: 1px;
+            background: currentColor;
+            position: relative;
+            transition: width var(--duration-reveal) var(--ease-out);
+        }
+
+        .contact-link-arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -3px;
+            width: 6px;
+            height: 6px;
+            border-right: 1px solid currentColor;
+            border-top: 1px solid currentColor;
+            transform: rotate(45deg);
+        }
+
+        .contact-link:hover .contact-link-arrow {
+            width: 32px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           FOOTER
+        ═══════════════════════════════════════════════════════════ */
+        .footer {
+            padding: var(--space-xl) var(--space-2xl);
+            padding-left: calc(var(--margin-left) + var(--space-2xl));
+            border-top: 1px solid var(--ghost);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+            background: var(--bone);
+        }
+
+        .footer-logo {
+            font-family: var(--serif);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--slate-muted);
+            text-decoration: none;
+            transition: color var(--duration-reveal) var(--ease-out);
+        }
+
+        .footer-link:hover {
+            color: var(--ink);
+        }
+
+        .footer-legal {
+            width: 100%;
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 400;
+            color: var(--slate-muted);
+            margin-top: var(--space-lg);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           MOBILE NAVIGATION
+        ═══════════════════════════════════════════════════════════ */
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bone);
+            border-top: 1px solid var(--ghost);
+            padding: var(--space-sm) var(--space-md);
+            z-index: 1000;
+        }
+
+        .nav-mobile-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .nav-mobile-link {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--slate-muted);
+            text-decoration: none;
+            padding: var(--space-xs);
+            transition: color var(--duration-reveal) var(--ease-out);
+        }
+
+        .nav-mobile-link:hover,
+        .nav-mobile-link.active {
+            color: var(--ink);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           RESPONSIVE
+        ═══════════════════════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .thesis-grid,
+            .verticals-grid,
+            .pipeline-categories,
+            .exit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bridge-visual {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .bridge-connector {
+                transform: rotate(90deg);
+                margin: var(--space-lg) auto;
+                width: 60px;
+            }
+
+            .approach-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --margin-left: 0;
+            }
+
+            .nav-marginalia {
+                display: none;
+            }
+
+            .nav-mobile {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+                padding-bottom: 60px;
+            }
+
+            .section {
+                padding: var(--space-xl) var(--space-md);
+            }
+
+            .thesis-section,
+            .verticals-section,
+            .approach-section {
+                margin-left: calc(-1 * var(--space-md));
+                margin-right: calc(-1 * var(--space-md));
+                padding-left: var(--space-md);
+                padding-right: var(--space-md);
+            }
+
+            .hero {
+                min-height: calc(100vh - 60px);
+                padding-top: var(--space-xl);
+            }
+
+            .footer {
+                padding: var(--space-lg) var(--space-md);
+                padding-left: var(--space-md);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           ACCESSIBILITY
+        ═══════════════════════════════════════════════════════════ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--slate);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION — Marginalia -->
+    <nav class="nav-marginalia" role="navigation" aria-label="Main navigation">
+        <a href="#" class="nav-logo">Y7</a>
+        <div class="nav-links">
+            <a href="#thesis" class="nav-link">Thesis</a>
+            <a href="#bridge" class="nav-link">Bridge</a>
+            <a href="#verticals" class="nav-link">Verticals</a>
+            <a href="#pipeline" class="nav-link">Pipeline</a>
+            <a href="#approach" class="nav-link">Approach</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <nav class="nav-mobile" role="navigation" aria-label="Mobile navigation">
+        <div class="nav-mobile-inner">
+            <a href="#" class="nav-mobile-link">Y7</a>
+            <a href="#thesis" class="nav-mobile-link">Thesis</a>
+            <a href="#bridge" class="nav-mobile-link">Bridge</a>
+            <a href="#verticals" class="nav-mobile-link">Verticals</a>
+            <a href="#contact" class="nav-mobile-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <!-- HERO -->
+        <section class="section hero" id="hero">
+            <span class="section-label">Y7 Capital · Cyber & Defence</span>
+
+            <h1 class="display-large hero-headline">
+                Capitalizing on Europe's Fastest Innovation Cycle
+            </h1>
+
+            <p class="hero-subhead">
+                We bridge the gap between Ukraine's operationally validated R&D and the European industrial defence ecosystem.
+            </p>
+
+            <div class="value-props">
+                <div class="value-prop">
+                    <div class="value-prop-marker"></div>
+                    <div class="value-prop-text"><strong>Compressed Innovation</strong> — Technology cycles accelerated from years to weeks under extreme operating conditions</div>
+                </div>
+                <div class="value-prop">
+                    <div class="value-prop-marker"></div>
+                    <div class="value-prop-text"><strong>Battle-Proven</strong> — Technologies validated in one of the most demanding electronic warfare environments</div>
+                </div>
+                <div class="value-prop">
+                    <div class="value-prop-marker"></div>
+                    <div class="value-prop-text"><strong>Strategic Entry</strong> — Access to undervalued dual-use technologies critical for European security sovereignty</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THESIS -->
+        <section class="section thesis-section" id="thesis">
+            <span class="section-label">Core Investment Thesis</span>
+            <h2 class="display-medium">Why this moment matters.</h2>
+
+            <div class="thesis-grid">
+                <article class="thesis-card">
+                    <div class="thesis-icon">⚡</div>
+                    <h3>Innovation Velocity</h3>
+                    <p>Extreme operating conditions have fundamentally compressed defence technology innovation cycles. We're witnessing a paradigm shift away from legacy, heavy procurement toward agile, cost-efficient, and rapidly deployable solutions.</p>
+                </article>
+
+                <article class="thesis-card">
+                    <div class="thesis-icon">◎</div>
+                    <h3>Operational Validation</h3>
+                    <p>Solutions that have survived one of the most demanding electronic warfare environments on the planet. If it works here, it performs reliably elsewhere. Immediate feedback loops create product-market fit speed that legacy procurement cycles cannot match.</p>
+                </article>
+
+                <article class="thesis-card">
+                    <div class="thesis-icon">↗</div>
+                    <h3>Scalable Advantage</h3>
+                    <p>Early-stage access to dual-use technologies that are currently undervalued, highly scalable, and critical for European security sovereignty. A young, highly technical workforce with deep expertise in AI, autonomous systems, cybersecurity, and robotics.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- BRIDGE -->
+        <section class="section bridge-section" id="bridge">
+            <span class="section-label">The Kyiv–Brussels Corridor</span>
+            <div class="bridge-intro">
+                <h2 class="display-medium">Bridging innovation to industry.</h2>
+                <p class="body-text">As the EU executes multi-year defence investment programs, it requires the cost-efficiency and operational readiness that Ukrainian tech provides. Y7 acts as the conduit.</p>
+            </div>
+
+            <div class="bridge-visual">
+                <div class="bridge-block source">
+                    <div class="bridge-label">Origin</div>
+                    <div class="bridge-headline">Ukrainian Innovation</div>
+                    <div class="bridge-context">Operationally validated R&D, compressed innovation cycles, deep technical talent in AI, robotics, cyber, and autonomous systems. Technologies proven under extreme conditions.</div>
+                </div>
+
+                <div class="bridge-connector">
+                    <div class="bridge-arrow"></div>
+                    <div class="bridge-icon">Y7</div>
+                </div>
+
+                <div class="bridge-block target">
+                    <div class="bridge-label">Destination</div>
+                    <div class="bridge-headline">European Industrial Base</div>
+                    <div class="bridge-context">Integration into the established European Defence Industrial Base (EDIB). EU-domiciled structures, NATO-compliant frameworks, access to primes and strategic acquirers.</div>
+                </div>
+            </div>
+
+            <div class="bridge-arbitrage">
+                <p><strong>The Arbitrage:</strong> Same quality asset at a significant discount due to perceived geography risk, then re-rate to market value by moving legal domicile to EU. Exclusive IP transfer agreements, clean audit trails, NATO-standard protection.</p>
+            </div>
+        </section>
+
+        <!-- VERTICALS -->
+        <section class="section verticals-section" id="verticals">
+            <span class="section-label">Strategic Investment Verticals</span>
+            <h2 class="display-medium">Where we focus.</h2>
+
+            <div class="verticals-grid">
+                <article class="vertical-card">
+                    <div class="vertical-icon">◉</div>
+                    <h3>Cognitive Security</h3>
+                    <p>Cybersecurity and AI-driven situational awareness. Automated intelligence platforms that distill actionable insights from noisy data environments in real-time.</p>
+                    <div class="vertical-tags">
+                        <span class="vertical-tag">Threat Intel</span>
+                        <span class="vertical-tag">SIGINT/OSINT</span>
+                        <span class="vertical-tag">AI Monitoring</span>
+                    </div>
+                </article>
+
+                <article class="vertical-card">
+                    <div class="vertical-icon">⬡</div>
+                    <h3>Autonomous Systems</h3>
+                    <p>Next-gen UAVs, sensors, and ground robotics. FPV, reconnaissance, strike, and swarm technologies with proven operational deployment and rapid iteration cycles.</p>
+                    <div class="vertical-tags">
+                        <span class="vertical-tag">Drone Swarm</span>
+                        <span class="vertical-tag">Computer Vision</span>
+                        <span class="vertical-tag">Sensor Fusion</span>
+                    </div>
+                </article>
+
+                <article class="vertical-card">
+                    <div class="vertical-icon">⚡</div>
+                    <h3>Critical Resilience</h3>
+                    <p>Energy grid protection and infrastructure durability. Systems designed to maintain operations under sustained attack conditions and distributed architectures.</p>
+                    <div class="vertical-tags">
+                        <span class="vertical-tag">Grid Hardening</span>
+                        <span class="vertical-tag">Distributed Energy</span>
+                        <span class="vertical-tag">Backup Systems</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- PIPELINE -->
+        <section class="section pipeline-section" id="pipeline">
+            <span class="section-label">Deal Flow & Access</span>
+            <div class="pipeline-intro">
+                <h2 class="display-medium">Unrivaled pipeline.</h2>
+                <p>Access through the Brave1 cluster, government partnerships, and deep relationships across Ukrainian defence R&D. A substantial pipeline of defence tech companies across multiple domains, validated through formal programs and EU-compliant structures.</p>
+            </div>
+
+            <div class="pipeline-categories">
+                <article class="pipeline-category">
+                    <div class="pipeline-category-icon">✈</div>
+                    <h4>UAV Systems</h4>
+                    <p>FPV drones, reconnaissance platforms, strike systems, and swarm coordination technologies</p>
+                </article>
+
+                <article class="pipeline-category">
+                    <div class="pipeline-category-icon">⬡</div>
+                    <h4>Ground Robotics</h4>
+                    <p>Autonomous vehicles, logistics platforms, EOD systems, and medical evacuation units</p>
+                </article>
+
+                <article class="pipeline-category">
+                    <div class="pipeline-category-icon">◎</div>
+                    <h4>Electronic Warfare</h4>
+                    <p>Jammers, detection systems, counter-drone solutions, and signal processing platforms</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- APPROACH -->
+        <section class="section approach-section" id="approach">
+            <span class="section-label">Access Meets Governance</span>
+            <div class="approach-intro">
+                <h2 class="display-medium">How we operate.</h2>
+                <p>The assets are adventurous. The hands holding the capital are safe, experienced, and regulated.</p>
+            </div>
+
+            <div class="approach-grid">
+                <div class="approach-column">
+                    <div class="approach-column-header">
+                        <span class="approach-column-icon">◎</span>
+                        <span class="approach-column-title">The Access</span>
+                        <span class="approach-column-location">Kyiv · Frontline</span>
+                    </div>
+                    <div class="approach-items">
+                        <div class="approach-item">
+                            <div class="approach-item-title">Venture Partners</div>
+                            <div class="approach-item-desc">Military background, Brave1 cluster ties, embedded deal flow access to the source of innovation</div>
+                        </div>
+                        <div class="approach-item">
+                            <div class="approach-item-title">Technical Leads</div>
+                            <div class="approach-item-desc">EW & Signal Processing specialists with operational validation expertise and direct military relationships</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="approach-column">
+                    <div class="approach-column-header">
+                        <span class="approach-column-icon">◈</span>
+                        <span class="approach-column-title">The Governance</span>
+                        <span class="approach-column-location">Lux · Brussels · London</span>
+                    </div>
+                    <div class="approach-items">
+                        <div class="approach-item">
+                            <div class="approach-item-title">Management</div>
+                            <div class="approach-item-desc">AIFM compliance expertise, cross-border M&A experience, institutional-grade fiduciary standards</div>
+                        </div>
+                        <div class="approach-item">
+                            <div class="approach-item-title">Advisory Board</div>
+                            <div class="approach-item-desc">Former NATO and defence procurement leadership, regulatory mastery across jurisdictions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exit-section">
+                <span class="section-label">Exit Landscape</span>
+                <h3 class="display-medium" style="font-size: 1.5rem; margin-bottom: var(--space-md);">Who acquires these assets.</h3>
+
+                <div class="exit-grid">
+                    <div class="exit-card">
+                        <h4>EU Defence Primes</h4>
+                        <p>Strategic acquisitions, technology licensing, joint venture formations</p>
+                    </div>
+                    <div class="exit-card">
+                        <h4>NATO-Aligned Tier-2</h4>
+                        <p>Specialized integrators, national champions, roll-up platforms</p>
+                    </div>
+                    <div class="exit-card">
+                        <h4>Critical Infrastructure</h4>
+                        <p>Enterprise security, industrial automation, regulated utilities</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="section contact-section" id="contact">
+            <span class="section-label">Next Steps · Initiate Dialogue</span>
+            <div class="contact-intro">
+                <h2 class="display-medium">Ready to engage?</h2>
+            </div>
+            <p class="contact-text">
+                Navigating the Kyiv–Brussels corridor requires the right partners. We combine unrivaled access to Ukrainian innovation with institutional-grade governance and regulatory expertise.
+            </p>
+            <a href="mailto:contact@y7capital.com" class="contact-link">
+                Get in touch
+                <span class="contact-link-arrow"></span>
+            </a>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <span class="footer-logo">Y7 Capital</span>
+        <div class="footer-links">
+            <a href="legal/imprint.html" class="footer-link">Imprint</a>
+            <a href="legal/privacy-policy.html" class="footer-link">Privacy</a>
+            <a href="legal/disclaimer.html" class="footer-link">Disclaimer</a>
+        </div>
+        <p class="footer-legal">© 2026 Y7 Capital · An initiative sponsored by ETIIC Sàrl, Switzerland (CHE-484.723.098)</p>
+        <p class="footer-legal" style="margin-top: 4px; font-size: 0.625rem;">Y7 Capital Management S.à r.l. is anticipated to be established in Luxembourg later in 2026.</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        (function() {
+            'use strict';
+
+            // Scroll reveal
+            const observerOptions = {
+                root: null,
+                rootMargin: '-10% 0px -10% 0px',
+                threshold: 0.1
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('settled');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.section').forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Navigation active state
+            const navLinks = document.querySelectorAll('.nav-link, .nav-mobile-link');
+            const sections = document.querySelectorAll('section[id]');
+
+            const updateActiveNav = () => {
+                const scrollPos = window.scrollY + window.innerHeight / 3;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Initial load
+            window.addEventListener('load', () => {
+                document.querySelector('.hero').classList.add('settled');
+            });
+        })();
+    </script>
+</body>
+</html>

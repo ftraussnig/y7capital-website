@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer | Y7 Capital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bone: #F6F5F2;
+            --bone-warm: #F8F6F1;
+            --ink: #1E1E1C;
+            --ink-light: #3D3D3A;
+            --slate: #5E6B73;
+            --slate-muted: #8A949B;
+            --forest: #2D3830;
+            --ghost: rgba(30, 30, 28, 0.06);
+            --ghost-strong: rgba(30, 30, 28, 0.12);
+            --caution: #8B7355;
+            --caution-bg: rgba(139, 115, 85, 0.08);
+            --caution-border: rgba(139, 115, 85, 0.25);
+            --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --space-xs: 8px;
+            --space-sm: 13px;
+            --space-md: 21px;
+            --space-lg: 34px;
+            --space-xl: 55px;
+            --space-2xl: 89px;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-reveal: 300ms;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bone);
+            color: var(--ink);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        ::selection {
+            background: var(--slate);
+            color: var(--bone);
+        }
+
+        .legal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-xl);
+        }
+
+        .legal-header {
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--ghost);
+        }
+
+        .legal-back {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--slate-muted);
+            text-decoration: none;
+            margin-bottom: var(--space-lg);
+            transition: color var(--duration-reveal) var(--ease-out);
+        }
+
+        .legal-back:hover { color: var(--ink); }
+
+        .legal-marker {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--slate-muted);
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        .legal-title {
+            font-family: var(--serif);
+            font-size: 2.25rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: var(--space-xs);
+        }
+
+        .legal-updated {
+            font-family: var(--sans);
+            font-size: 0.8125rem;
+            font-weight: 300;
+            color: var(--slate-muted);
+        }
+
+        .legal-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .legal-section h2 {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--ghost);
+        }
+
+        .legal-section p {
+            font-family: var(--sans);
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            margin-bottom: var(--space-md);
+            line-height: 1.8;
+        }
+
+        .legal-section p strong {
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .legal-section ul {
+            list-style: none;
+            margin: var(--space-md) 0;
+        }
+
+        .legal-section li {
+            font-family: var(--sans);
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .legal-section li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 6px;
+            height: 6px;
+            background: var(--forest);
+        }
+
+        .legal-section li strong {
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .legal-section a {
+            color: var(--forest);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: color var(--duration-reveal) var(--ease-out);
+        }
+
+        .legal-section a:hover { color: var(--ink); }
+
+        .warning-box {
+            background: var(--caution-bg);
+            border: 1px solid var(--caution-border);
+            border-left: 3px solid var(--caution);
+            padding: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .warning-box-title {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--caution);
+            margin-bottom: var(--space-sm);
+        }
+
+        .warning-box p {
+            font-family: var(--sans);
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .warning-box p strong {
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .info-box {
+            background: var(--bone-warm);
+            border: 1px solid var(--ghost);
+            padding: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .info-box-title {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--slate-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .info-box p {
+            font-family: var(--sans);
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .legal-footer {
+            margin-top: var(--space-xl);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--ghost);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .legal-footer-links {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .legal-footer-links a {
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--slate-muted);
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: color var(--duration-reveal) var(--ease-out);
+        }
+
+        .legal-footer-links a:hover { color: var(--ink); }
+
+        .legal-footer-copy {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 400;
+            color: var(--slate-muted);
+        }
+
+        @media (max-width: 768px) {
+            .legal-container { padding: var(--space-xl) var(--space-md); }
+            .legal-title { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <main class="legal-container">
+        <header class="legal-header">
+            <a href="../index.html" class="legal-back">← Back to Y7 Capital</a>
+            <span class="legal-marker">Legal Documentation</span>
+            <h1 class="legal-title">Investment Disclaimer</h1>
+            <span class="legal-updated">Important Risk Disclosures</span>
+        </header>
+
+        <section class="legal-section">
+            <div class="info-box" style="border-left: 3px solid var(--forest);">
+                <div class="info-box-title" style="color: var(--forest);">Sponsoring Entity Notice</div>
+                <p>This website and the Y7 Capital initiative are currently sponsored and operated by <strong>ETIIC Sàrl</strong> (CHE-484.723.098), a Swiss limited liability company. Y7 Capital Management S.à r.l. is anticipated to be established as a regulated entity in Luxembourg later in 2026.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <div class="warning-box">
+                <div class="warning-box-title">Important Notice</div>
+                <p><strong>Capital at risk.</strong> The value of investments and the income from them can fall as well as rise and investors may not get back the amount originally invested. Past performance is not a reliable indicator of future results.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>Not an Offer</h2>
+            <p>The information on this website does not constitute an offer to sell or a solicitation of an offer to buy any securities in any jurisdiction. No offer or invitation to subscribe for shares or interests in any fund managed by Y7 Capital is being made by this website.</p>
+            <p>Any offering of securities will be made only pursuant to a confidential private placement memorandum or offering document, which will contain material information not available on this website.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2>No Investment Advice</h2>
+            <p>Nothing on this website constitutes investment, legal, tax, or other advice. The information is provided for general informational purposes only and should not be relied upon for making investment decisions.</p>
+            <p>You should consult your own financial, legal, and tax advisors before making any investment.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2>Qualified Investors Only</h2>
+            <p>Any investment products managed by Y7 Capital are intended exclusively for:</p>
+            <ul>
+                <li><strong>Professional Investors</strong> as defined under MiFID II</li>
+                <li><strong>Well-Informed Investors</strong> as defined under Luxembourg law</li>
+                <li>Investors meeting minimum investment thresholds</li>
+            </ul>
+            <p>Retail investors are not eligible to invest in funds managed by Y7 Capital.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2>Jurisdictional Restrictions</h2>
+            <div class="info-box">
+                <div class="info-box-title">Restricted Jurisdictions</div>
+                <p>This website is not directed at persons in any jurisdiction where the distribution of such information would be contrary to local law or regulation.</p>
+            </div>
+            <p><strong>United States:</strong> The securities described herein have not been registered under the U.S. Securities Act of 1933, as amended, and may not be offered or sold in the United States or to U.S. persons absent registration or an applicable exemption.</p>
+            <p><strong>United Kingdom:</strong> This communication is directed only at persons who are "professional clients" or "eligible counterparties" for the purposes of the Financial Conduct Authority rules.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2>Risk Factors</h2>
+            <p>Investment in alternative investment funds involves significant risks including but not limited to:</p>
+            <ul>
+                <li><strong>Loss of Capital:</strong> You may lose some or all of your investment</li>
+                <li><strong>Illiquidity:</strong> Investments may be difficult or impossible to sell</li>
+                <li><strong>Concentration Risk:</strong> Focus on specific sectors (cyber, defence) increases volatility</li>
+                <li><strong>Geopolitical Risk:</strong> Exposure to conflict zones and political instability</li>
+                <li><strong>Currency Risk:</strong> Investments may be denominated in multiple currencies</li>
+                <li><strong>Regulatory Risk:</strong> Changes in laws may adversely affect investments</li>
+                <li><strong>Valuation Risk:</strong> Early-stage companies are difficult to value accurately</li>
+                <li><strong>Limited Transparency:</strong> Limited information about portfolio companies</li>
+            </ul>
+        </section>
+
+        <section class="legal-section">
+            <h2>Forward-Looking Statements</h2>
+            <p>This website may contain forward-looking statements. These statements are based on current expectations and are subject to risks and uncertainties that could cause actual results to differ materially. Y7 Capital undertakes no obligation to update forward-looking statements.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2>Past Performance</h2>
+            <div class="warning-box">
+                <div class="warning-box-title">Performance Warning</div>
+                <p>Past performance is not indicative of future results. Any performance data shown is for illustrative purposes only and should not be relied upon as an indication of future performance.</p>
+            </div>
+        </section>
+
+        <section class="legal-section">
+            <h2>No Client Relationship</h2>
+            <p>Viewing this website does not create an advisory, fiduciary, or other professional relationship between you and Y7 Capital. No client relationship is formed until a subscription agreement is executed.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2>Limitation of Liability</h2>
+            <p>To the maximum extent permitted by law, ETIIC Sàrl (as current sponsor) and Y7 Capital (upon establishment), including their affiliates, directors, officers, and employees, shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from the use of this website or reliance on its contents.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2>Governing Law</h2>
+            <p>This disclaimer and any disputes arising from the use of this website shall be governed by and construed in accordance with the laws of Switzerland. The courts of Geneva shall have exclusive jurisdiction. Upon establishment of Y7 Capital Management S.à r.l. in Luxembourg, governing law provisions may be updated accordingly.</p>
+        </section>
+
+        <footer class="legal-footer">
+            <div class="legal-footer-links">
+                <a href="./privacy-policy.html">Privacy</a>
+                <a href="./imprint.html">Imprint</a>
+                <a href="../index.html">Home</a>
+            </div>
+            <span class="legal-footer-copy">© 2026 Y7 Capital · Sponsored by ETIIC Sàrl, Switzerland</span>
+        </footer>
+    </main>
+</body>
+</html>
