@@ -11,12 +11,9 @@
 
     <style>
         /* ═══════════════════════════════════════════════════════════
-           VARIANT 4: FIXED NAV + CENTERED CONTENT
-           - Colored sections respect nav margin (don't overlap)
-           - Bolder contrast between sections
-           - Compact spacing
-           - Proper large screen centering
-           - Mobile Y7 fix
+           VARIANT 5: THESIS AS STYLED SECTION BOX
+           - Thesis cards wrapped like "Where we focus"
+           - Better visual flow from hero
         ═══════════════════════════════════════════════════════════ */
         :root {
             /* Colors - GOOD CONTRAST */
@@ -94,7 +91,7 @@
             padding: var(--space-lg) var(--space-md);
             padding-bottom: var(--space-3xl);
             z-index: 100;
-            background: var(--bone);  /* Solid background so sections don't show through */
+            background: var(--bone);
         }
 
         .nav-logo {
@@ -169,11 +166,11 @@
             transform: translateY(0);
         }
 
-        /* COLORED SECTIONS - Background stays within main area, doesn't overlap nav */
+        /* COLORED SECTIONS */
         .section-colored {
             background: var(--bone-warm);
             padding: var(--space-3xl) var(--space-2xl);
-            max-width: none;  /* Allow full width within .main */
+            max-width: none;
             margin-left: calc(-1 * var(--space-2xl));
             margin-right: calc(-1 * var(--space-2xl));
             padding-left: var(--space-2xl);
@@ -221,14 +218,12 @@
             max-width: 600px;
         }
 
-        /* HERO */
+        /* HERO - Compact, no full height */
         .hero {
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             padding-top: var(--space-3xl);
-            padding-bottom: var(--space-3xl);
+            padding-bottom: var(--space-xl);
         }
 
         .hero-headline {
@@ -240,53 +235,41 @@
             font-size: 1.125rem;
             font-weight: 300;
             color: var(--slate);
-            margin-bottom: var(--space-xl);
-            max-width: 520px;
+            max-width: 620px;
             line-height: 1.7;
         }
 
-        .value-props {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-            margin-top: var(--space-xl);
-            padding-top: var(--space-xl);
-            border-top: 2px solid var(--ghost-strong);
+        .nowrap {
+            white-space: nowrap;
         }
 
-        .value-prop {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--space-md);
+        /* THESIS SECTION - Styled box like Verticals */
+        .thesis-section {
+            background: var(--bone-warm);
+            padding: var(--space-xl) var(--space-2xl);
+            max-width: none;
+            margin-left: calc(-1 * var(--space-2xl));
+            margin-right: calc(-1 * var(--space-2xl));
+            padding-left: var(--space-2xl);
+            padding-right: var(--space-2xl);
         }
 
-        .value-prop-marker {
-            width: 8px;
-            height: 8px;
-            background: var(--forest);
-            margin-top: 7px;
-            flex-shrink: 0;
+        .thesis-section .section-inner {
+            max-width: var(--content-max);
         }
 
-        .value-prop-text {
-            font-family: var(--sans);
-            font-size: 0.9375rem;
-            font-weight: 300;
-            color: var(--ink-light);
-            line-height: 1.6;
+        .thesis-section .section-label {
+            margin-bottom: var(--space-sm);
         }
 
-        .value-prop-text strong {
-            font-weight: 500;
-            color: var(--ink);
+        .thesis-section .display-medium {
+            margin-bottom: var(--space-lg);
         }
 
-        /* THESIS SECTION */
         .thesis-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: var(--space-lg);
-            margin-top: var(--space-xl);
             max-width: var(--content-max);
         }
 
@@ -415,31 +398,6 @@
             padding: var(--space-sm) var(--space-md);
         }
 
-        .bridge-arbitrage {
-            margin-top: var(--space-xl);
-            padding: var(--space-lg);
-            border: 2px solid var(--ghost-strong);
-            border-left: 4px solid var(--forest-accent);
-            background: var(--bone);
-            max-width: 750px;
-        }
-
-        .bridge-arbitrage p {
-            font-family: var(--sans);
-            font-size: 0.875rem;
-            font-weight: 300;
-            color: var(--ink-light);
-            line-height: 1.8;
-        }
-
-        .bridge-arbitrage strong {
-            font-weight: 500;
-            color: var(--forest);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 0.75rem;
-        }
-
         /* VERTICALS SECTION */
         .verticals-grid {
             display: grid;
@@ -501,76 +459,22 @@
             color: var(--bone);
         }
 
-        /* PIPELINE SECTION */
-        .pipeline-intro {
-            max-width: 600px;
-            margin-bottom: var(--space-xl);
-        }
-
-        .pipeline-intro p {
-            font-family: var(--sans);
-            font-size: 1rem;
-            font-weight: 300;
-            line-height: 1.8;
-            color: var(--ink-light);
-            margin-top: var(--space-md);
-        }
-
-        .pipeline-categories {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-lg);
-            margin-top: var(--space-xl);
-            max-width: var(--content-max);
-        }
-
-        .pipeline-category {
+        /* SETUP SECTION */
+        .setup-intro-box {
             padding: var(--space-lg);
             border: 2px solid var(--ghost-strong);
+            border-left: 4px solid var(--forest);
             background: var(--bone);
-            text-align: center;
-            transition: border-color var(--duration-reveal) var(--ease-out),
-                        transform var(--duration-reveal) var(--ease-out);
-        }
-
-        .pipeline-category:hover {
-            border-color: var(--forest);
-            transform: translateY(-2px);
-        }
-
-        .pipeline-category-icon {
-            font-size: 2rem;
-            margin-bottom: var(--space-md);
-        }
-
-        .pipeline-category h4 {
-            font-family: var(--serif);
-            font-size: 1.125rem;
-            font-weight: 500;
-            color: var(--ink);
-            margin-bottom: var(--space-xs);
-        }
-
-        .pipeline-category p {
-            font-family: var(--sans);
-            font-size: 0.8125rem;
-            font-weight: 300;
-            color: var(--slate);
-            line-height: 1.6;
-        }
-
-        /* APPROACH SECTION */
-        .approach-intro {
             margin-bottom: var(--space-xl);
             max-width: 600px;
         }
 
-        .approach-intro p {
-            font-family: var(--serif);
-            font-size: 1.25rem;
-            font-style: italic;
-            color: var(--ink-light);
-            margin-top: var(--space-md);
+        .setup-intro-box .section-label {
+            margin-bottom: var(--space-sm);
+        }
+
+        .setup-intro-box .display-medium {
+            margin: 0;
         }
 
         .approach-grid {
@@ -644,47 +548,6 @@
             font-weight: 300;
             color: var(--ink-light);
             line-height: 1.6;
-        }
-
-        /* Exit Section */
-        .exit-section {
-            margin-top: var(--space-xl);
-            padding-top: var(--space-xl);
-            border-top: 2px solid var(--ghost-strong);
-        }
-
-        .exit-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-lg);
-            margin-top: var(--space-lg);
-        }
-
-        .exit-card {
-            padding: var(--space-md);
-            border-left: 3px solid var(--forest);
-            background: var(--bone);
-            transition: background var(--duration-reveal) var(--ease-out);
-        }
-
-        .exit-card:hover {
-            background: var(--ghost);
-        }
-
-        .exit-card h4 {
-            font-family: var(--serif);
-            font-size: 1.0625rem;
-            font-weight: 500;
-            color: var(--ink);
-            margin-bottom: var(--space-xs);
-        }
-
-        .exit-card p {
-            font-family: var(--sans);
-            font-size: 0.75rem;
-            font-weight: 300;
-            color: var(--slate);
-            line-height: 1.5;
         }
 
         /* CONTACT SECTION */
@@ -836,7 +699,7 @@
             color: var(--ink);
         }
 
-        /* RESPONSIVE - LARGE SCREENS - CENTERED */
+        /* RESPONSIVE - LARGE SCREENS */
         @media (min-width: 1400px) {
             .main {
                 max-width: calc(1100px + var(--space-2xl) * 2);
@@ -848,8 +711,8 @@
                 max-width: 1000px;
             }
 
-            /* Colored sections extend right but not past nav on left */
-            .section-colored {
+            .section-colored,
+            .thesis-section {
                 margin-left: 0;
                 margin-right: 0;
                 padding-left: var(--space-2xl);
@@ -871,9 +734,7 @@
         /* RESPONSIVE - TABLET */
         @media (max-width: 1024px) {
             .thesis-grid,
-            .verticals-grid,
-            .pipeline-categories,
-            .exit-grid {
+            .verticals-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -888,7 +749,6 @@
                 width: 60px;
             }
 
-            /* FIX: Keep Y7 readable on mobile */
             .bridge-icon {
                 transform: rotate(-90deg);
             }
@@ -921,7 +781,8 @@
                 padding: var(--space-xl) var(--space-md);
             }
 
-            .section-colored {
+            .section-colored,
+            .thesis-section {
                 margin-left: calc(-1 * var(--space-md));
                 margin-right: calc(-1 * var(--space-md));
                 padding-left: var(--space-md);
@@ -929,7 +790,6 @@
             }
 
             .hero {
-                min-height: calc(100vh - 60px);
                 padding-top: var(--space-xl);
             }
 
@@ -958,15 +818,14 @@
     </style>
 </head>
 <body>
-    <!-- NAVIGATION — Marginalia (solid background) -->
+    <!-- NAVIGATION — Marginalia -->
     <nav class="nav-marginalia" role="navigation" aria-label="Main navigation">
         <a href="#" class="nav-logo">Y7</a>
         <div class="nav-links">
-            <a href="#thesis" class="nav-link">Thesis</a>
+            <a href="#hero" class="nav-link">Home</a>
             <a href="#bridge" class="nav-link">Bridge</a>
             <a href="#verticals" class="nav-link">Verticals</a>
-            <a href="#pipeline" class="nav-link">Pipeline</a>
-            <a href="#approach" class="nav-link">Approach</a>
+            <a href="#setup" class="nav-link">Setup</a>
             <a href="#contact" class="nav-link">Contact</a>
         </div>
     </nav>
@@ -974,43 +833,28 @@
     <!-- Mobile Navigation -->
     <nav class="nav-mobile" role="navigation" aria-label="Mobile navigation">
         <div class="nav-mobile-inner">
-            <a href="#" class="nav-mobile-link">Y7</a>
-            <a href="#thesis" class="nav-mobile-link">Thesis</a>
-            <a href="#bridge" class="nav-mobile-link">Bridge</a>
+            <a href="#hero" class="nav-mobile-link">Home</a>
             <a href="#verticals" class="nav-mobile-link">Verticals</a>
+            <a href="#setup" class="nav-mobile-link">Setup</a>
             <a href="#contact" class="nav-mobile-link">Contact</a>
         </div>
     </nav>
 
     <!-- MAIN CONTENT -->
     <main class="main">
-        <!-- HERO -->
+        <!-- HERO - Compact intro -->
         <section class="section hero" id="hero">
             <span class="section-label">Y7 Capital · Cyber & Defence</span>
             <h1 class="display-large hero-headline">
                 Capitalizing on Europe's Fastest Innovation Cycle
             </h1>
             <p class="hero-subhead">
-                We bridge the gap between Ukraine's operationally validated R&D and the European industrial defence ecosystem.
+                We bridge the gap between <span class="nowrap">Ukraine's operationally validated R&D</span><br>and the European industrial defence ecosystem.
             </p>
-            <div class="value-props">
-                <div class="value-prop">
-                    <div class="value-prop-marker"></div>
-                    <div class="value-prop-text"><strong>Compressed Innovation</strong> — Technology cycles accelerated from years to weeks under extreme operating conditions</div>
-                </div>
-                <div class="value-prop">
-                    <div class="value-prop-marker"></div>
-                    <div class="value-prop-text"><strong>Battle-Proven</strong> — Technologies validated in one of the most demanding electronic warfare environments</div>
-                </div>
-                <div class="value-prop">
-                    <div class="value-prop-marker"></div>
-                    <div class="value-prop-text"><strong>Strategic Entry</strong> — Access to undervalued dual-use technologies critical for European security sovereignty</div>
-                </div>
-            </div>
         </section>
 
-        <!-- THESIS (colored) -->
-        <section class="section section-colored" id="thesis">
+        <!-- THESIS - Styled section box -->
+        <div class="thesis-section">
             <div class="section-inner">
                 <span class="section-label">Core Investment Thesis</span>
                 <h2 class="display-medium">Why this moment matters.</h2>
@@ -1032,7 +876,7 @@
                     </article>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- BRIDGE -->
         <section class="section" id="bridge">
@@ -1057,15 +901,12 @@
                     <div class="bridge-context">Integration into the European Defence Industrial Base. EU-domiciled structures, NATO-compliant frameworks, access to strategic acquirers.</div>
                 </div>
             </div>
-            <div class="bridge-arbitrage">
-                <p><strong>The Arbitrage:</strong> Same quality asset at a significant discount due to perceived geography risk, then re-rate to market value by moving legal domicile to EU. Exclusive IP transfer agreements, clean audit trails, NATO-standard protection.</p>
-            </div>
         </section>
 
         <!-- VERTICALS (colored) -->
         <section class="section section-colored" id="verticals">
             <div class="section-inner">
-                <span class="section-label">Strategic Investment Verticals</span>
+                <span class="section-label">Strategic Verticals</span>
                 <h2 class="display-medium">Where we focus.</h2>
                 <div class="verticals-grid">
                     <article class="vertical-card">
@@ -1102,39 +943,12 @@
             </div>
         </section>
 
-        <!-- PIPELINE -->
-        <section class="section" id="pipeline">
-            <span class="section-label">Deal Flow & Access</span>
-            <div class="pipeline-intro">
-                <h2 class="display-medium">Unrivaled pipeline.</h2>
-                <p>Access through the Brave1 cluster, government partnerships, and deep relationships across Ukrainian defence R&D. EU-compliant structures.</p>
-            </div>
-            <div class="pipeline-categories">
-                <article class="pipeline-category">
-                    <div class="pipeline-category-icon">✈</div>
-                    <h4>UAV Systems</h4>
-                    <p>FPV drones, reconnaissance platforms, strike systems, swarm coordination</p>
-                </article>
-                <article class="pipeline-category">
-                    <div class="pipeline-category-icon">⬡</div>
-                    <h4>Ground Robotics</h4>
-                    <p>Autonomous vehicles, logistics platforms, EOD systems, medical evacuation</p>
-                </article>
-                <article class="pipeline-category">
-                    <div class="pipeline-category-icon">◎</div>
-                    <h4>Electronic Warfare</h4>
-                    <p>Jammers, detection systems, counter-drone solutions, signal processing</p>
-                </article>
-            </div>
-        </section>
-
-        <!-- APPROACH (colored) -->
-        <section class="section section-colored" id="approach">
+        <!-- SETUP -->
+        <section class="section" id="setup">
             <div class="section-inner">
-                <span class="section-label">Access Meets Governance</span>
-                <div class="approach-intro">
+                <div class="setup-intro-box">
+                    <span class="section-label">Access Meets Governance</span>
                     <h2 class="display-medium">How we operate.</h2>
-                    <p>The assets are adventurous. The hands holding the capital are safe, experienced, and regulated.</p>
                 </div>
                 <div class="approach-grid">
                     <div class="approach-column">
@@ -1158,7 +972,7 @@
                         <div class="approach-column-header">
                             <span class="approach-column-icon">◈</span>
                             <span class="approach-column-title">The Governance</span>
-                            <span class="approach-column-location">Lux · Brussels · London</span>
+                            <span class="approach-column-location">EU · Geneva</span>
                         </div>
                         <div class="approach-items">
                             <div class="approach-item">
@@ -1172,24 +986,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="exit-section">
-                    <span class="section-label">Exit Landscape</span>
-                    <h3 class="display-medium" style="font-size: 1.375rem; margin-bottom: var(--space-md);">Who acquires these assets.</h3>
-                    <div class="exit-grid">
-                        <div class="exit-card">
-                            <h4>EU Defence Primes</h4>
-                            <p>Strategic acquisitions, technology licensing, JV formations</p>
-                        </div>
-                        <div class="exit-card">
-                            <h4>NATO-Aligned Tier-2</h4>
-                            <p>Specialized integrators, national champions, roll-up platforms</p>
-                        </div>
-                        <div class="exit-card">
-                            <h4>Critical Infrastructure</h4>
-                            <p>Enterprise security, industrial automation, utilities</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -1200,7 +996,7 @@
                 <h2 class="display-medium">Ready to engage?</h2>
             </div>
             <p class="contact-text">
-                Navigating the Kyiv–Brussels corridor requires the right partners. We combine unrivaled access to Ukrainian innovation with institutional-grade governance.
+                Navigating the Kyiv–Brussels corridor requires the right partners. We combine unrivaled access to Ukrainian innovation with institutional‑grade governance.
             </p>
             <a href="mailto:contact@y7capital.com" class="contact-link">
                 Get in touch
