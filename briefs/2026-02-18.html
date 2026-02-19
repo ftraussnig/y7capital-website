@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Y7 Capital — Intelligence Brief — 2026-02-18</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+    <style>
+      /* Google Fonts loaded via <link> in <head> for browser; system stack fallback for PDF */
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #1A202C;
+        background: #F0F2F5;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #FFFFFF;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+      }
+
+      /* ── Header ── */
+      .header {
+        background: #1B2A4A;
+        padding: 0;
+        display: flex;
+        align-items: stretch;
+        min-height: 72px;
+      }
+      .header-brand {
+        flex: 1;
+        padding: 16px 28px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .header-title {
+        color: #C9A84C;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      .header-subtitle {
+        color: rgba(255,255,255,0.65);
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+      .header-badge {
+        background: rgba(201,168,76,0.15);
+        border-left: 1px solid rgba(201,168,76,0.4);
+        padding: 16px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        min-width: 160px;
+      }
+      .badge-label {
+        font-size: 9px;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.5);
+      }
+      .badge-value {
+        font-size: 13px;
+        font-weight: 600;
+        color: #C9A84C;
+        letter-spacing: 0.5px;
+      }
+
+      /* ── Date bar ── */
+      .datebar {
+        background: #EBF4FF;
+        border-bottom: 1px solid #E2E8F0;
+        padding: 10px 28px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        font-size: 12px;
+        color: #4A5568;
+      }
+      .datebar-date {
+        font-weight: 600;
+        color: #1B2A4A;
+        font-size: 13px;
+      }
+      .datebar-meta {
+        color: #64748B;
+      }
+
+      /* ── Section heading ── */
+      .section {
+        padding: 24px 28px 0;
+      }
+      .section-title {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #1B2A4A;
+        border-bottom: 2px solid #C9A84C;
+        padding-bottom: 6px;
+        margin-bottom: 16px;
+      }
+
+      /* ── Executive Summary callout ── */
+      .exec-callout {
+        background: #F8F5ED;
+        border-left: 4px solid #C9A84C;
+        border-radius: 0 6px 6px 0;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+      }
+      .exec-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #1B2A4A;
+        margin-bottom: 4px;
+      }
+      .exec-body {
+        font-size: 12.5px;
+        color: #2D3748;
+        line-height: 1.65;
+      }
+
+      /* ── Signal cards ── */
+      .signal-card {
+        border: 1px solid #E2E8F0;
+        border-radius: 6px;
+        margin-bottom: 16px;
+        overflow: hidden;
+      }
+      .signal-card-header {
+        padding: 12px 16px 10px;
+        border-bottom: 1px solid #E2E8F0;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .signal-number {
+        background: #1B2A4A;
+        color: #FFFFFF;
+        font-size: 10px;
+        font-weight: 700;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .signal-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #1B2A4A;
+        line-height: 1.4;
+        flex: 1;
+      }
+      .signal-body {
+        padding: 14px 16px;
+      }
+      .signal-field {
+        margin-bottom: 10px;
+      }
+      .signal-field:last-child {
+        margin-bottom: 0;
+      }
+      .signal-field-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #64748B;
+        margin-bottom: 3px;
+      }
+      .signal-field-text {
+        font-size: 12.5px;
+        color: #2D3748;
+        line-height: 1.6;
+      }
+      .signal-footer {
+        background: #F7F8FA;
+        border-top: 1px solid #E2E8F0;
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .signal-action-label {
+        font-size: 10px;
+        color: #64748B;
+        font-weight: 500;
+      }
+      .signal-action-text {
+        font-size: 12px;
+        color: #374151;
+        line-height: 1.5;
+        flex: 1;
+      }
+
+      /* ── Q&A ── */
+      .qa-item {
+        display: grid;
+        grid-template-columns: 16px 1fr;
+        gap: 10px;
+        padding: 12px 0;
+        border-bottom: 1px solid #E2E8F0;
+        align-items: start;
+      }
+      .qa-item:last-child { border-bottom: none; }
+      .qa-question {
+        font-size: 12px;
+        font-weight: 700;
+        color: #1B2A4A;
+        margin-bottom: 4px;
+      }
+      .qa-answer {
+        font-size: 12px;
+        color: #374151;
+        line-height: 1.65;
+      }
+      .dot {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .dot-green { color: #10B981; }
+      .dot-red { color: #CBD5E0; }
+
+      /* ── Coverage / Data Quality ── */
+      .gap-list {
+        list-style: none;
+        padding: 0;
+      }
+      .gap-list li {
+        padding: 6px 0 6px 16px;
+        position: relative;
+        font-size: 12.5px;
+        color: #374151;
+        border-bottom: 1px solid #E2E8F0;
+      }
+      .gap-list li:last-child { border-bottom: none; }
+      .gap-list li::before {
+        content: '—';
+        position: absolute;
+        left: 0;
+        color: #CBD5E0;
+      }
+
+      .dq-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
+      .dq-table td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #E2E8F0;
+        vertical-align: top;
+      }
+      .dq-table tr:nth-child(odd) td { background: #F7F8FA; }
+      .dq-table td:first-child {
+        font-weight: 600;
+        color: #1B2A4A;
+        width: 40%;
+        white-space: nowrap;
+      }
+      .dq-assessment {
+        font-size: 12px;
+        color: #4A5568;
+        background: #F7F8FA;
+        border-left: 3px solid #1B2A4A;
+        padding: 10px 14px;
+        border-radius: 0 4px 4px 0;
+        margin-top: 8px;
+        line-height: 1.6;
+      }
+
+      /* ── Footer ── */
+      .footer {
+        background: #1B2A4A;
+        padding: 14px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 32px;
+      }
+      .footer-left {
+        color: rgba(255,255,255,0.5);
+        font-size: 10px;
+        letter-spacing: 0.5px;
+      }
+      .footer-right {
+        color: rgba(201,168,76,0.7);
+        font-size: 10px;
+      }
+
+      /* ── Print / PDF ── */
+      @media print {
+        body { background: white; }
+        .page { box-shadow: none; max-width: 100%; }
+        .signal-card { break-inside: avoid; }
+        .qa-item { break-inside: avoid; }
+        .section { page-break-inside: avoid; }
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      /* ── Dark mode ── */
+      /* Note: dark mode applies to browser view only — PDF always renders in light mode */
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #0D1117;
+          color: #C9D1D9;
+        }
+        .page {
+          background: #161B22;
+          box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+        }
+
+        /* Header stays navy — already dark enough */
+
+        /* Date bar */
+        .datebar {
+          background: #1C2333;
+          border-bottom-color: #30363D;
+          color: #8B949E;
+        }
+        .datebar-date { color: #C9A84C; }
+
+        /* Section headings */
+        .section-title {
+          color: #C9A84C;
+          border-bottom-color: #C9A84C;
+        }
+
+        /* Executive summary callout */
+        .exec-callout {
+          background: #1C1A12;
+          border-left-color: #C9A84C;
+        }
+        .exec-title { color: #E2C97E; }
+        .exec-body { color: #B0BAC6; }
+
+        /* Signal cards */
+        .signal-card { border-color: #30363D; }
+        .signal-card-header { border-bottom-color: #30363D; }
+        .signal-title { color: #C9A84C; }
+        .signal-field-label { color: #6E7681; }
+        .signal-field-text { color: #B0BAC6; }
+        .signal-footer {
+          background: #1C2333;
+          border-top-color: #30363D;
+        }
+        .signal-action-label { color: #6E7681; }
+        .signal-action-text { color: #8B949E; }
+
+        /* Q&A */
+        .qa-item { border-bottom-color: #30363D; }
+        .qa-question { color: #C9A84C; }
+        .qa-answer { color: #B0BAC6; }
+        .dot-green { color: #3FB950; }
+        .dot-red { color: #30363D; }
+
+        /* Coverage / Data Quality */
+        .gap-list li {
+          color: #B0BAC6;
+          border-bottom-color: #30363D;
+        }
+        .gap-list li::before { color: #30363D; }
+        .dq-table td { border-bottom-color: #30363D; }
+        .dq-table tr:nth-child(odd) td { background: #1C2333; }
+        .dq-table td:first-child { color: #C9A84C; }
+        .dq-assessment {
+          color: #8B949E;
+          background: #1C2333;
+          border-left-color: #C9A84C;
+        }
+
+        /* Footer stays navy */
+      }
+    </style>
+    
+</head>
+<body>
+
+<!-- Back navigation bar -->
+<div style="background:#F8F7F4;border-bottom:1px solid rgba(20,20,18,0.12);padding:10px 28px;display:flex;align-items:center;gap:16px;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:12px;max-width:900px;margin:0 auto;">
+  <a href="../intelligence.html" style="display:inline-flex;align-items:center;gap:8px;color:#1B2A4A;text-decoration:none;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;font-size:11px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.65'" onmouseout="this.style.opacity='1'">
+    <span style="display:inline-block;width:16px;height:2px;background:#1B2A4A;position:relative;top:0px;">
+      <span style="position:absolute;left:0;top:-3px;width:6px;height:6px;border-left:2px solid #1B2A4A;border-bottom:2px solid #1B2A4A;transform:rotate(45deg);display:block;"></span>
+    </span>
+    Intelligence Archive
+  </a>
+  <span style="color:rgba(20,20,18,0.20);">·</span>
+  <span style="color:#6A757D;">18 February 2026</span>
+</div>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-brand">
+      <div class="header-title">Y7 Capital</div>
+      <div class="header-subtitle">Intelligence Brief</div>
+    </div>
+    <div class="header-badge">
+      <div class="badge-label">DISTRIBUTION</div>
+      <div class="badge-value">PUBLIC</div>
+    </div>
+    <div class="header-badge" style="border-left-color:rgba(255,255,255,0.1);">
+      <div class="badge-label">Defence Tech Focus</div>
+      <div class="badge-value" style="color:rgba(255,255,255,0.75);">Ukraine · Europe</div>
+    </div>
+  </div>
+
+  <!-- Date bar -->
+  <div class="datebar">
+    <span class="datebar-date">18 February 2026</span>
+    <span class="datebar-meta">45 relevant articles · 160 collected</span>
+    <span class="datebar-meta" style="margin-left:auto;font-size:11px;color:#94A3B8;">EXTERNAL · PUBLIC</span>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="section" style="padding-top:24px;">
+    <div class="section-title">Executive Summary</div>
+    
+            <div class="exec-callout">
+              <div class="exec-title">The Pentagon has endorsed European procurement protectionism</div>
+              <div class="exec-body">Under Secretary Colby publicly blessed the EU's €150bn defence loan requiring 65% European/Canadian/<strong>Ukrainian</strong> content, eliminating the primary political risk to our thesis that Ukrainian manufacturers will capture share of Europe's decade-long defence spending surge to 3.5-5% GDP.</div>
+            </div>
+            <div class="exec-callout">
+              <div class="exec-title">AI autonomy and swarm coordination have crossed into institutional procurement</div>
+              <div class="exec-body">Swarmer's 100,000+ combat missions since April 2024 triggered a Nasdaq IPO filing and $15M Series A (largest Ukrainian defence tech raise since war began); Shield AI's Hivemind completed ~200 Ukraine flights identifying 200+ Russian targets in 2025; Ukraine's new Mission Control system now integrates 5 million annual drone operations into data-driven procurement that rewards verified battlefield performance.</div>
+            </div>
+            <div class="exec-callout">
+              <div class="exec-title">Ukraine has unblocked defence exports to 28 countries</div>
+              <div class="exec-body">Following security agreements, manufacturers can now export to Baltic states, Northern Europe, Germany, and UK after domestic commitments are met, converting battlefield validation into commercial market access through the "Build with Ukraine" programme's 10 joint venture export centres expected operational in 2026.</div>
+            </div>
+            <div class="exec-callout">
+              <div class="exec-title">The funding supercycle is accelerating</div>
+              <div class="exec-body">Ukrainian defence tech raised $129M in 2025 (19× three-year growth), with foreign investors now providing 49% of capital and average deal sizes jumping 5× to $2.1M; this comes alongside €5bn annual Ukraine Assistance Fund, €40bn NATO commitment, and maturing infrastructure (Diya.City now hosts ~500 DefenseTech firms with competitive tax regime).</div>
+            </div>
+  </div>
+
+  <!-- Top Signals -->
+  <div class="section" style="padding-top:28px;">
+    <div class="section-title">Top Signals</div>
+    
+        <div class="signal-card" style="border-left: 4px solid #10B981;">
+          <div class="signal-card-header">
+            <span class="signal-number">1</span>
+            <div class="signal-title">Pentagon Validates EU Procurement Protectionism with Explicit Ukrainian Inclusion</div>
+          </div>
+          <div class="signal-body">
+            <div class="signal-field"><div class="signal-field-label">What happened</div><div class="signal-field-text">Under Secretary Elbridge Colby formally reversed U.S. opposition to "buy European" policies, endorsing the EU's €150bn procurement loan that requires 65% European/Canadian/<strong>Ukrainian</strong> content as NATO allies scale to 3.5-5% GDP spending through 2035.</div></div><div class="signal-field"><div class="signal-field-label">Who is involved</div><div class="signal-field-text">U.S. Department of Defence, European Commission, NATO member states committing €381bn, Ukrainian manufacturers gaining preferential access to the largest European defence procurement expansion since the Cold War.</div></div><div class="signal-field"><div class="signal-field-label">Why it matters for Y7</div><div class="signal-field-text">This eliminates the key political risk to European protectionism whilst creating structural displacement of U.S. suppliers (currently 64% of European arms imports 2020-2024). Ukrainian defence tech sits at the intersection of battlefield-proven capability and formal procurement preference in a €97.5bn addressable market opening over the next decade.</div></div>
+          </div>
+          <div class="signal-footer">
+            <span class="action-pill" style="background:#D1FAE5;color:#065F46;border:1px solid #10B981;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:0.8px;white-space:nowrap;">ENGAGE</span>
+            <div class="signal-action-text"><strong>ENGAGE</strong> — portfolio companies and pipeline targets with EU market entry strategies should immediately prioritise certification for the 65% procurement preference; Ukraine's proven battlefield validation + regulatory preference = sustainable competitive moat.</div>
+          </div>
+        </div>
+        <div class="signal-card" style="border-left: 4px solid #F59E0B;">
+          <div class="signal-card-header">
+            <span class="signal-number">2</span>
+            <div class="signal-title">Ukrainian Defence Tech Crosses Public Market Threshold with Swarmer IPO Filing</div>
+          </div>
+          <div class="signal-body">
+            <div class="signal-field"><div class="signal-field-label">What happened</div><div class="signal-field-text">Swarmer filed for Nasdaq IPO following September 2025's $15M Series A, having executed 100,000+ combat missions since April 2024. Concurrently, Shield AI's Hivemind autonomy completed ~200 Ukraine flights identifying 200+ Russian targets in 2025, now integrating with Ukrainian startup Iron Belly to expand autonomous strike capabilities.</div></div><div class="signal-field"><div class="signal-field-label">Who is involved</div><div class="signal-field-text">Swarmer (first Ukrainian DefTech IPO candidate), Shield AI (U.S. unicorn validating Ukrainian partnerships), Iron Belly (Ukrainian autonomous strike developer), Ukraine's Mission Control system institutionalising performance-based procurement across 5 million annual drone operations.</div></div><div class="signal-field"><div class="signal-field-label">Why it matters for Y7</div><div class="signal-field-text">AI autonomy has transitioned from proof-of-concept to institutional procurement with transparent, battlefield-validated performance metrics. Swarmer's public market trajectory validates that Ukrainian defence tech with proven combat deployment can access growth capital at Western valuations, de-risking our Series A/B entry thesis.</div></div>
+          </div>
+          <div class="signal-footer">
+            <span class="action-pill" style="background:#FEF3C7;color:#92400E;border:1px solid #F59E0B;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:0.8px;white-space:nowrap;">INVESTIGATE</span>
+            <div class="signal-action-text"><strong>INVESTIGATE</strong> — map Ukrainian AI autonomy startups with demonstrated mission volume and DELTA integration; companies following the Swarmer playbook (battlefield validation → institutional procurement → public markets) represent highest-conviction bets.</div>
+          </div>
+        </div>
+        <div class="signal-card" style="border-left: 4px solid #3B82F6;">
+          <div class="signal-card-header">
+            <span class="signal-number">3</span>
+            <div class="signal-title">Ukraine Systematically Converting Battlefield Data into Commercial Advantage</div>
+          </div>
+          <div class="signal-body">
+            <div class="signal-field"><div class="signal-field-label">What happened</div><div class="signal-field-text">Brave1 and Palantir jointly launched Dataroom platform in January 2026, enabling Ukrainian developers to train autonomous systems on real frontline combat data including visual/thermal datasets of Russian systems. This runs parallel to Ukraine's Mission Control system opening to international partners for AI model training, creating a unique data moat unavailable elsewhere.</div></div><div class="signal-field"><div class="signal-field-label">Who is involved</div><div class="signal-field-text">Brave1 (Ukrainian government defence tech accelerator), Palantir (strategic infrastructure partner), international AI developers gaining access to combat datasets, Ukrainian startups building on proprietary battlefield intelligence.</div></div><div class="signal-field"><div class="signal-field-label">Why it matters for Y7</div><div class="signal-field-text">This represents infrastructure-level cooperation beyond transactional aid — Ukraine is monetising its asymmetric information advantage by providing Western defence tech firms with training data they cannot acquire anywhere else. Ukrainian startups training on this data have systematic product advantages over competitors.</div></div>
+          </div>
+          <div class="signal-footer">
+            <span class="action-pill" style="background:#DBEAFE;color:#1E40AF;border:1px solid #3B82F6;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:0.8px;white-space:nowrap;">MONITOR</span>
+            <div class="signal-action-text"><strong>MONITOR</strong> — track which Ukrainian companies gain Dataroom platform access and demonstrate autonomy capabilities trained on real combat data; early identification of these firms before institutional capital competition intensifies offers optimal entry timing.</div>
+          </div>
+        </div>
+  </div>
+
+  
+
+  <!-- Q&A Analysis (internal only) -->
+  
+
+  
+  
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-left">
+      Y7 Capital · Proprietary &amp; Confidential · 18 February 2026
+    </div>
+    <div class="footer-right">
+      Generated 2026-02-18 18:02 UTC
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y7 Capital | Field Intelligence</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bone: #F8F7F4;
+            --bone-warm: #EBE6DC;
+            --ink: #1A1A18;
+            --ink-light: #3A3A38;
+            --slate: #3D4A54;
+            --slate-muted: #6A757D;
+            --forest: #1F2D24;
+            --forest-accent: #2D4A38;
+            --ghost: rgba(20, 20, 18, 0.12);
+            --ghost-strong: rgba(20, 20, 18, 0.20);
+
+            /* Brief accent colours — bridging the two design systems */
+            --navy: #1B2A4A;
+            --gold: #C9A84C;
+            --gold-light: #F8F5ED;
+
+            --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 20px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+            --space-2xl: 64px;
+            --space-3xl: 80px;
+
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-settle: 600ms;
+            --duration-reveal: 300ms;
+
+            --margin-left: 120px;
+            --content-max: 1000px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--sans);
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--ink);
+            background-color: var(--bone);
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--navy);
+            color: var(--bone);
+        }
+
+        /* ── NAV (identical to index.html) ── */
+        .nav-marginalia {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: var(--margin-left);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: var(--space-lg) var(--space-md);
+            padding-bottom: var(--space-3xl);
+            z-index: 100;
+            background: var(--bone);
+        }
+
+        .nav-logo {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            align-items: flex-start;
+        }
+
+        .nav-link {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--slate-muted);
+            text-decoration: none;
+            transition: color var(--duration-reveal) var(--ease-out);
+            position: relative;
+            padding: 2px 0;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--navy);
+            transform: translateY(-50%);
+            transition: width var(--duration-reveal) var(--ease-out);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--ink);
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 6px;
+        }
+
+        /* Intel link gets gold accent when active */
+        .nav-link.intel-active {
+            color: var(--ink);
+        }
+        .nav-link.intel-active::before {
+            width: 6px;
+            background: var(--gold);
+        }
+
+        /* ── MAIN ── */
+        .main {
+            margin-left: var(--margin-left);
+            min-height: 100vh;
+        }
+
+        .section {
+            padding: var(--space-3xl) var(--space-2xl);
+            max-width: var(--content-max);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity var(--duration-settle) var(--ease-out),
+                        transform var(--duration-settle) var(--ease-out);
+        }
+
+        .section.settled {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── TYPOGRAPHY ── */
+        .display-large {
+            font-family: var(--serif);
+            font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+        }
+
+        .display-medium {
+            font-family: var(--serif);
+            font-size: clamp(1.625rem, 2.75vw, 2rem);
+            font-weight: 400;
+            line-height: 1.25;
+            color: var(--ink);
+        }
+
+        .section-label {
+            display: block;
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--forest-accent);
+            margin-bottom: var(--space-lg);
+        }
+
+        .body-text {
+            font-family: var(--sans);
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--ink-light);
+            max-width: 600px;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            padding-top: var(--space-3xl);
+            padding-bottom: var(--space-xl);
+        }
+
+        .hero-headline {
+            margin-bottom: var(--space-lg);
+        }
+
+        .hero-subhead {
+            font-family: var(--sans);
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: var(--slate);
+            max-width: 560px;
+            line-height: 1.7;
+        }
+
+        /* ── ARCHIVE SECTION (full-width warm strip) ── */
+        .archive-section {
+            background: var(--bone-warm);
+            padding: var(--space-xl) var(--space-2xl);
+            max-width: none;
+            margin-left: calc(-1 * var(--space-2xl));
+            margin-right: calc(-1 * var(--space-2xl));
+            padding-left: var(--space-2xl);
+            padding-right: var(--space-2xl);
+        }
+
+        .archive-section.settled {
+            opacity: 1;
+            transform: none;
+        }
+
+        .archive-inner {
+            max-width: var(--content-max);
+        }
+
+        /* ── BRIEF CARDS ── */
+        .brief-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .brief-card {
+            background: var(--bone);
+            border-left: 4px solid var(--navy);
+            padding: var(--space-lg);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: transform var(--duration-reveal) var(--ease-out),
+                        box-shadow var(--duration-reveal) var(--ease-out);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .brief-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .brief-card-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .brief-date {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: rgba(201, 168, 76, 0.10);
+            border: 1px solid rgba(201, 168, 76, 0.30);
+            padding: 3px 10px;
+            border-radius: 2px;
+        }
+
+        .brief-tag {
+            font-family: var(--sans);
+            font-size: 0.625rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--slate-muted);
+            border: 1px solid var(--ghost-strong);
+            padding: 3px 8px;
+            border-radius: 2px;
+        }
+
+        .brief-card-title {
+            font-family: var(--serif);
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            font-weight: 500;
+            color: var(--navy);
+            line-height: 1.3;
+            margin-bottom: var(--space-sm);
+        }
+
+        .brief-card-lede {
+            font-family: var(--sans);
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: var(--ink-light);
+            line-height: 1.75;
+            max-width: 680px;
+            margin-bottom: var(--space-md);
+        }
+
+        .brief-card-signals {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .brief-signal-chip {
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--slate);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .brief-signal-chip::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--navy);
+            flex-shrink: 0;
+        }
+
+        .brief-card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-family: var(--sans);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--navy);
+            transition: gap var(--duration-reveal) var(--ease-out);
+        }
+
+        .brief-card:hover .brief-card-cta {
+            gap: var(--space-md);
+        }
+
+        .brief-cta-arrow {
+            width: 20px;
+            height: 2px;
+            background: var(--navy);
+            position: relative;
+            transition: width var(--duration-reveal) var(--ease-out);
+            flex-shrink: 0;
+        }
+
+        .brief-cta-arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -3px;
+            width: 7px;
+            height: 7px;
+            border-right: 2px solid var(--navy);
+            border-top: 2px solid var(--navy);
+            transform: rotate(45deg);
+        }
+
+        .brief-card:hover .brief-cta-arrow {
+            width: 28px;
+        }
+
+        /* ── EMPTY STATE (for when archive grows) ── */
+        .brief-coming-soon {
+            padding: var(--space-lg);
+            border: 1px dashed var(--ghost-strong);
+            font-family: var(--sans);
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: var(--slate-muted);
+            text-align: center;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            margin-left: calc(-1 * var(--space-2xl));
+            margin-right: calc(-1 * var(--space-2xl));
+            padding: var(--space-xl) var(--space-2xl);
+            border-top: 2px solid var(--ghost-strong);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+            background: var(--bone-warm);
+        }
+
+        .footer-logo {
+            font-family: var(--serif);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--slate);
+            text-decoration: none;
+            transition: color var(--duration-reveal) var(--ease-out);
+        }
+
+        .footer-link:hover {
+            color: var(--ink);
+        }
+
+        .footer-legal {
+            width: 100%;
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 400;
+            color: var(--slate);
+            margin-top: var(--space-lg);
+        }
+
+        /* ── MOBILE NAV ── */
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bone);
+            border-top: 2px solid var(--ghost-strong);
+            padding: var(--space-sm) var(--space-md);
+            z-index: 1000;
+        }
+
+        .nav-mobile-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .nav-mobile-link {
+            font-family: var(--sans);
+            font-size: 0.6875rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--slate);
+            text-decoration: none;
+            padding: var(--space-xs);
+            transition: color var(--duration-reveal) var(--ease-out);
+        }
+
+        .nav-mobile-link:hover,
+        .nav-mobile-link.active {
+            color: var(--ink);
+        }
+
+        .nav-mobile-link.intel-active {
+            color: var(--gold);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (min-width: 1400px) {
+            .main {
+                max-width: calc(1100px + var(--space-2xl) * 2);
+                margin-left: var(--margin-left);
+                margin-right: auto;
+            }
+            .section { max-width: 1000px; }
+            .archive-section { margin-left: 0; margin-right: 0; }
+        }
+
+        @media (min-width: 1600px) {
+            .main { margin-left: auto; padding-left: var(--margin-left); }
+            .nav-marginalia { left: calc(50% - 550px - var(--margin-left)); }
+        }
+
+        @media (max-width: 768px) {
+            :root { --margin-left: 0; }
+            .nav-marginalia { display: none; }
+            .nav-mobile { display: block; }
+            .main { margin-left: 0; padding-bottom: 60px; }
+            .section { padding: var(--space-xl) var(--space-md); }
+            .archive-section {
+                margin-left: calc(-1 * var(--space-md));
+                margin-right: calc(-1 * var(--space-md));
+                padding-left: var(--space-md);
+                padding-right: var(--space-md);
+            }
+            .footer {
+                margin-left: calc(-1 * var(--space-md));
+                margin-right: calc(-1 * var(--space-md));
+                padding: var(--space-lg) var(--space-md);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--navy);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="nav-marginalia" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-logo">Y7</a>
+        <div class="nav-links">
+            <a href="index.html#hero" class="nav-link">Home</a>
+            <a href="index.html#bridge" class="nav-link">Bridge</a>
+            <a href="index.html#verticals" class="nav-link">Verticals</a>
+            <a href="index.html#setup" class="nav-link">Setup</a>
+            <a href="index.html#contact" class="nav-link">Contact</a>
+            <a href="intelligence.html" class="nav-link intel-active">Intel</a>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <nav class="nav-mobile" role="navigation" aria-label="Mobile navigation">
+        <div class="nav-mobile-inner">
+            <a href="index.html#hero" class="nav-mobile-link">Home</a>
+            <a href="index.html#verticals" class="nav-mobile-link">Verticals</a>
+            <a href="index.html#contact" class="nav-mobile-link">Contact</a>
+            <a href="intelligence.html" class="nav-mobile-link intel-active">Intel</a>
+        </div>
+    </nav>
+
+    <main class="main">
+
+        <!-- HERO -->
+        <section class="section hero" id="hero">
+            <span class="section-label">Field Intelligence · Y7 Capital</span>
+            <h1 class="display-large hero-headline">
+                Open-source signals.<br>Operational clarity.
+            </h1>
+            <p class="hero-subhead">
+                Published every five days. Open-source signals synthesising the defence tech landscape across Ukraine, Europe, and the emerging Kyiv–Brussels corridor.
+            </p>
+        </section>
+
+        <!-- ARCHIVE -->
+        <div class="archive-section settled">
+            <div class="archive-inner">
+                <span class="section-label">Briefing Archive</span>
+                <h2 class="display-medium">Latest intelligence.</h2>
+
+                <div class="brief-list">
+
+                    <!-- ── Brief: 2026-02-18 ── -->
+                    <a class="brief-card" href="briefs/2026-02-18.html">
+                        <div class="brief-card-meta">
+                            <span class="brief-date">18 Feb 2026</span>
+                            <span class="brief-tag">External</span>
+                            <span class="brief-tag">Defence Tech</span>
+                        </div>
+                        <h3 class="brief-card-title">
+                            Pentagon validates EU protectionism with Ukrainian inclusion — funding supercycle accelerates
+                        </h3>
+                        <p class="brief-card-lede">
+                            Four converging signals confirm structural acceleration: Under Secretary Colby endorsed the EU's €150bn procurement loan with explicit Ukrainian content preference, eliminating the primary political risk to the thesis. Swarmer's Nasdaq IPO filing validated the public market pathway for Ukrainian defence tech. Ukraine unblocked defence exports to 28 countries. Funding hit $129M in 2025 — 19× three-year growth.
+                        </p>
+                        <div class="brief-card-signals">
+                            <span class="brief-signal-chip">4 executive signals</span>
+                            <span class="brief-signal-chip">45 source articles · 160 collected</span>
+                            <span class="brief-signal-chip">AI autonomy · Procurement · Export access · Capital markets</span>
+                        </div>
+                        <span class="brief-card-cta">
+                            Read brief
+                            <span class="brief-cta-arrow"></span>
+                        </span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <span class="footer-logo">Y7 Capital</span>
+            <div class="footer-links">
+                <a href="index.html" class="footer-link">← Main site</a>
+                <a href="legal/imprint.html" class="footer-link">Imprint</a>
+                <a href="legal/privacy-policy.html" class="footer-link">Privacy</a>
+                <a href="legal/disclaimer.html" class="footer-link">Disclaimer</a>
+            </div>
+            <p class="footer-legal">© 2026 Y7 Capital · An initiative sponsored by ETIIC Sàrl, Switzerland (CHE-484.723.098)</p>
+            <p class="footer-legal" style="margin-top: 4px; font-size: 0.625rem;">Y7 Capital Management S.à r.l. is anticipated to be established in Luxembourg later in 2026.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        (function() {
+            'use strict';
+            document.querySelector('.hero').classList.add('settled');
+        })();
+    </script>
+</body>
+</html>
